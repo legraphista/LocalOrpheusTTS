@@ -72,6 +72,7 @@ Press `Ctrl+C` in the terminal where the services are running to gracefully stop
 
 The project uses a `.env` file for configuration. Make sure to set up the following variables:
 - `ORPHEUS_MODEL_NAME`: The name of the Orpheus model to use (default: "legraphista/Orpheus:3b-ft-q8")
+    - You can find the available models here: https://ollama.com/legraphista/Orpheus/tags
 
 ## Troubleshooting
 
