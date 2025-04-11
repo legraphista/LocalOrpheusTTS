@@ -1,6 +1,13 @@
 #!/bin/bash
 set -e;
 
+# Load environment variables from .env file
+if [ -f .env ]; then
+    source .env
+else
+    echo "Error: .env file not found"
+    exit 1
+fi
 
 echo "Activating virtual environment..."
 source .venv/bin/activate
@@ -57,10 +64,9 @@ fi
 
 # Pull the Orpheus model if not already downloaded
 echo "Ensuring Orpheus model is available..."
-MODEL_NAME=$(grep ORPHEUS_MODEL_NAME .env | cut -d '"' -f 2)
-if [ -z "$MODEL_NAME" ]; then
-    MODEL_NAME="legraphista/Orpheus:3b-ft-q8"
-fi
+MODEL_NAME=${ORPHEUS_MODEL_NAME:-"legraphista/Orpheus:3b-ft-q8"}
+
+echo "Pulling Orpheus model: $MODEL_NAME"
 
 ollama pull $MODEL_NAME
 
@@ -117,10 +123,8 @@ cleanup() {
 echo "Services are running. Press Ctrl+C to stop all services."
 
 
-# Read port from .env file
-PORT=$(grep "ORPHEUS_PORT" ../.env | cut -d'=' -f2 | tr -d '"' | tr -d ' ')
-# Default to 5005 if not found
-PORT=${PORT:-5005}
+# Read port from environment variable
+PORT=${ORPHEUS_PORT:-5005}
 
 echo "You can now open http://localhost:$PORT to access the interface."
 echo "Api docs are available at http://localhost:$PORT/docs"

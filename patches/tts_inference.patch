@@ -21,7 +21,6 @@ index 7e1e501..6168890 100644
                              
                          try:
                              data = json.loads(data_str)
-+                            print(f"Data: {data}")
                              if 'choices' in data and len(data['choices']) > 0:
 -                                token_chunk = data['choices'][0].get('text', '')
 +                                # token_chunk = data['choices'][0].get('text', '')
