@@ -23,6 +23,11 @@ git clone --recurse-submodules https://github.com/legraphista/LocalOrpheusTTS.gi
 cd LocalOrpheusTTS
 ```
 
+If you have cloned the repository without the submodules, you can initialize and update them with:
+```bash
+git submodule update --init --recursive
+```
+
 2. Run the setup script:
 ```bash
 chmod +x setup.sh
