@@ -1,4 +1,4 @@
-# Local TTS Project
+# Local Orpheus TTS
 
 You can find the Orpheus TTS project here: https://github.com/canopyai/Orpheus-TTS
 
