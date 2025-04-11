@@ -6,6 +6,7 @@ This project provides a local text-to-speech (TTS) solution using Orpheus and Ol
 
 - Ubuntu/Debian-based Linux system
 - Python 3.10
+- uv
 - Git
 - curl
 - libportaudio2
@@ -14,8 +15,8 @@ This project provides a local text-to-speech (TTS) solution using Orpheus and Ol
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/legraphista/local-tts.git
-cd local-tts
+git clone https://github.com/legraphista/LocalOrpheus.git
+cd LocalOrpheus
 ```
 
 2. Run the setup script:

@@ -1,6 +1,21 @@
 #!/bin/bash
 set -e;
 
+
+echo "Activating virtual environment..."
+source .venv/bin/activate
+
+# Verify activation
+if [ -z "$VIRTUAL_ENV" ]; then
+    echo "Failed to activate virtual environment. Exiting."
+    exit 1
+else
+    echo "Virtual environment activated successfully."
+    # Print Python version for verification
+    python --version
+fi
+
+
 # Parse command line arguments
 USE_EXISTING_OLLAMA=false
 while [[ $# -gt 0 ]]; do
@@ -100,6 +115,15 @@ cleanup() {
 }
 
 echo "Services are running. Press Ctrl+C to stop all services."
+
+
+# Read port from .env file
+PORT=$(grep "ORPHEUS_PORT" ../.env | cut -d'=' -f2 | tr -d '"' | tr -d ' ')
+# Default to 5005 if not found
+PORT=${PORT:-5005}
+
+echo "You can now open http://localhost:$PORT to access the interface."
+echo "Api docs are available at http://localhost:$PORT/docs"
 
 # Keep the script running until interrupted
 wait
