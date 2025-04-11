@@ -1,0 +1,31 @@
+diff --git a/tts_engine/inference.py b/tts_engine/inference.py
+index 7e1e501..6168890 100644
+--- a/tts_engine/inference.py
++++ b/tts_engine/inference.py
+@@ -220,7 +220,13 @@ def generate_tokens_from_api(prompt: str, voice: str = DEFAULT_VOICE, temperatur
+     
+     # Create the request payload (model field may not be required by some endpoints but included for compatibility)
+     payload = {
+-        "prompt": formatted_prompt,
++        # "prompt": formatted_prompt,
++        "messages": [
++            {
++                "role": "user",
++                "content": formatted_prompt
++            }
++        ],
+         "max_tokens": max_tokens,
+         "temperature": temperature,
+         "top_p": top_p,
+@@ -278,8 +284,10 @@ def generate_tokens_from_api(prompt: str, voice: str = DEFAULT_VOICE, temperatur
+                             
+                         try:
+                             data = json.loads(data_str)
++                            print(f"Data: {data}")
+                             if 'choices' in data and len(data['choices']) > 0:
+-                                token_chunk = data['choices'][0].get('text', '')
++                                # token_chunk = data['choices'][0].get('text', '')
++                                token_chunk = data['choices'][0].get('delta', {}).get('content', '')
+                                 for token_text in token_chunk.split('>'):
+                                     token_text = f'{token_text}>'
+                                     token_counter += 1

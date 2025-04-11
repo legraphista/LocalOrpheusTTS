@@ -1,0 +1,3 @@
+[submodule "git-modules/Orpheus-FastAPI"]
+	path = git-modules/Orpheus-FastAPI
+	url = https://github.com/Lex-au/Orpheus-FastAPI.git
