@@ -1,22 +1,26 @@
 # Local TTS Project
 
+You can find the Orpheus TTS project here: https://github.com/canopyai/Orpheus-TTS
+
 This project provides a local text-to-speech (TTS) solution using Orpheus and Ollama. It includes a FastAPI server for TTS inference and integrates with the Ollama model server.
 
 ## Prerequisites
 
-- Ubuntu/Debian-based Linux system
-- Python 3.10
-- uv
+- OS
+    - Ubuntu/Debian-based Linux system (recommended, tested)
+    - Windows WSL (tested)
+    - Should work on other systems (macOS, etc.)
+- Python 3.10 
+    - Recommended to use [pyenv](https://github.com/pyenv/pyenv) if 3.10 is not installed
 - Git
 - curl
-- libportaudio2
 
 ## Setup
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/legraphista/LocalOrpheus.git
-cd LocalOrpheus
+git clone https://github.com/legraphista/LocalOrpheusTTS.git
+cd LocalOrpheusTTS
 ```
 
 2. Run the setup script:
@@ -26,10 +30,11 @@ chmod +x setup.sh
 ```
 
 The setup script will:
-- Install required system dependencies
+- Install required system dependencies (libportaudio2)
+- Install uv package manager if not already installed
 - Set up the Python environment using uv
 - Install Ollama
-- Apply necessary patches to the TTS engine
+- Apply the TTS inference patch to the Orpheus FastAPI engine
 
 ## Starting the Services
 
