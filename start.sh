@@ -1,23 +1,43 @@
 #!/bin/bash
 set -e;
 
-# Start Ollama in the background
-echo "Starting Ollama server in the background..."
-ollama serve > ollama.log 2>&1 &
+# Parse command line arguments
+USE_EXISTING_OLLAMA=false
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --use-existing-ollama)
+            USE_EXISTING_OLLAMA=true
+            shift
+            ;;
+        *)
+            echo "Unknown option: $1"
+            exit 1
+            ;;
+    esac
+done
 
-# Store the Ollama process ID
-OLLAMA_PID=$!
-echo "Ollama started with PID: $OLLAMA_PID"
+# Start Ollama in the background if not using existing server
+if [ "$USE_EXISTING_OLLAMA" = false ]; then
+    echo "Starting Ollama server in the background..."
+    ollama serve > ollama.log 2>&1 &
 
-# Give Ollama a moment to initialize
-sleep 2
+    # Store the Ollama process ID
+    OLLAMA_PID=$!
+    echo "Ollama started with PID: $OLLAMA_PID"
 
-# Check if Ollama is running
-if ps -p $OLLAMA_PID > /dev/null; then
-    echo "Ollama server is running successfully"
+    # Give Ollama a moment to initialize
+    sleep 2
+
+    # Check if Ollama is running
+    if ps -p $OLLAMA_PID > /dev/null; then
+        echo "Ollama server is running successfully"
+    else
+        echo "Failed to start Ollama server. Check ollama.log for details."
+        exit 1
+    fi
 else
-    echo "Failed to start Ollama server. Check ollama.log for details."
-    exit 1
+    echo "Using existing Ollama server on port 11434"
+    OLLAMA_PID=0
 fi
 
 # Pull the Orpheus model if not already downloaded
@@ -69,8 +89,8 @@ cleanup() {
         kill -TERM $ORPHEUS_API_PID
     fi
     
-    # Kill the Ollama server if it's running
-    if ps -p $OLLAMA_PID > /dev/null 2>&1; then
+    # Kill the Ollama server if it's running and we started it
+    if [ "$USE_EXISTING_OLLAMA" = false ] && ps -p $OLLAMA_PID > /dev/null 2>&1; then
         echo "Stopping Ollama server (PID: $OLLAMA_PID)..."
         kill -TERM $OLLAMA_PID
     fi
