@@ -19,7 +19,7 @@ This project provides a local text-to-speech (TTS) solution using Orpheus and Ol
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/legraphista/LocalOrpheusTTS.git
+git clone --recurse-submodules https://github.com/legraphista/LocalOrpheusTTS.git
 cd LocalOrpheusTTS
 ```
 
