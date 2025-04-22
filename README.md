@@ -28,7 +28,14 @@ If you have cloned the repository without the submodules, you can initialize and
 git submodule update --init --recursive
 ```
 
-2. Run the setup script:
+2. Setup environment:
+```bash
+# make sure you're running py 3.10, 3.11+ might not be supported.
+python3 -m venv .venv
+. .venv/bin/activate
+```
+
+3. Run the setup script:
 ```bash
 chmod +x setup.sh
 ./setup.sh
